@@ -5,7 +5,7 @@ import { createLogger } from 'redux-logger'
 import { routerMiddleware } from 'react-router-redux'
 
 import rootReducer from '../reducers/'
-import initialState from './initialState'
+import initialState from './models/'
 import history from './history'
 
 export default createStore(

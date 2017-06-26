@@ -1,0 +1,15 @@
+.btn-auth {
+    font-size: 15px;
+    padding: 5px;
+    margin: 10px;
+}
+
+.btn-auth-login {
+    background: #6bc1fd;
+    color: #ffffff;
+}
+
+.btn-auth-logout {
+    background: #5ed5ab;
+    color: #ffffff;
+}
