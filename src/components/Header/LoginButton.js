@@ -6,8 +6,6 @@ import style from '../../assets/button.css'
 
 const cx = className.bind(style)
 
-console.log('cx', cx)
-
 const LoginButton = (props) => {
     const className = {
         'btn-auth': true,

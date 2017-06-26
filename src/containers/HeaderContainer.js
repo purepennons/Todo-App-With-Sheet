@@ -5,7 +5,7 @@ import { updateLoginStateAction } from '../actions/'
 import { initGoogleAuth, loginGoogle, logoutGoogle } from '../handlers/auth'
 
 export default connect(
-    state => ({ auth: state.auth }),
+    state => ({ auth: state.authState }),
     dispatch => ({
         init: () => {
             initGoogleAuth( isAuthorized => dispatch(updateLoginStateAction({ isAuthorized })) )

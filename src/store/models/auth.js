@@ -1,6 +1,4 @@
-const AuthState = {
+export const authState = {
     isAuthorized: false,
     token: '',
 }
-
-export default AuthState

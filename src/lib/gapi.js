@@ -8,18 +8,18 @@ const default_ops = {
     ]
 }
 
-
+const gapi =  window.gapi
 
 export const initGoogleAuth = (update_cb, options = default_ops) => {
-    window.gapi.load('client:auth2', () => init(update_cb, options))
+    gapi.load('client:auth2', () => init(update_cb, options))
 }
 
 function init(update_cb, options = default_ops) {
     if (!options.apiKey || !options.clientId) throw new Error('without google api key or client id')
     
-    return window.gapi.client.init(options)
+    return gapi.client.init(options)
         .then(() => {
-            let GoogleAuth = window.gapi.auth2.getAuthInstance()
+            let GoogleAuth = gapi.auth2.getAuthInstance()
 
             // listen updating
             GoogleAuth.isSignedIn.listen(update_cb)
@@ -30,9 +30,9 @@ function init(update_cb, options = default_ops) {
 }
 
 export const loginGoogle = () => {
-    window.gapi.auth2.getAuthInstance().signIn()
+    gapi.auth2.getAuthInstance().signIn()
 }
 
 export const logoutGoogle = () => {
-    window.gapi.auth2.getAuthInstance().signOut()
+    gapi.auth2.getAuthInstance().signOut()
 }
