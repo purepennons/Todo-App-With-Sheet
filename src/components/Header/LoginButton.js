@@ -25,7 +25,7 @@ const LoginButton = (props) => {
 }
 
 LoginButton.propTypes = {
-    isAuthorized: PropTypes.bool
+    isAuthorized: PropTypes.bool.isRequired
 }
 
 LoginButton.defaultProps = {

@@ -1,7 +1,7 @@
-import { authState } from '../../store/models/'
+import { AuthState } from '../../store/models/'
 import { UPDATE_GOOGLE_AUTH } from '../../constants/actionTypes'
 
-export default function (state = authState, action) {
+export default (state = AuthState, action) => {
     switch (action.type) {
         case UPDATE_GOOGLE_AUTH: {
             return {...state, ...action.payload}

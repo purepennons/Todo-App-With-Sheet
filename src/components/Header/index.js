@@ -3,10 +3,6 @@ import React, { Component } from 'react'
 import LoginButton from './LoginButton'
 
 class Header extends Component {
-    constructor(props) {
-        super(props)
-    }
-
     componentDidMount() {
         this.props.init()
     }
