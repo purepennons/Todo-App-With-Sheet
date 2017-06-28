@@ -1,7 +1,10 @@
+import 'normalize.css'
+
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { Provider } from 'react-redux'
 import { ConnectedRouter } from 'react-router-redux'
+
 
 import Main from './components/Main/'
 import store from './store/'

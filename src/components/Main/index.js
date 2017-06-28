@@ -1,11 +1,12 @@
 import React from 'react'
 import HeaderContainer from '../../containers/HeaderContainer'
+import TodoContainer from '../../containers/TodoContainer'
 
 const Main = (props) => {
     return (
         <div>
             <HeaderContainer />    
-            Main...    
+            <TodoContainer />
         </div>
     )
 }
