@@ -8,62 +8,92 @@ import TodoItem from '../src/components/Todo/TodoItem'
 
 import 'normalize.css'
 
+const category_style = {
+    normal: {
+        id: 'normal',
+        color: 'default'
+    },
+    work: {
+        id: 'work',
+        color: 'red'
+    },
+    family: {
+        id: 'family',
+        color: 'green'
+    }
+}
+
 storiesOf('LoginButton', module)
     .add('not login', () => <LoginButton isAuthorized={false} />)
     .add('already login', () => <LoginButton isAuthorized={true}/>)
 
 storiesOf('TodoHeader', module)
-    .add('no input', () => <TodoHeader />)
+    .add('empty', () => <TodoHeader />)
+    .add('default', () => <TodoHeader category_list={['normal', 'work', 'family']} category_style={category_style}/>)
 
 storiesOf('TodoItem', module)
     .add('empty item', () => <TodoItem />)
     .add('a default item', () => {
         const props = [
             {
-                id: '',
+                id: '1',
                 isDone: false,
-                content: '',
-                category: '',
-                date: null
+                content: 'default',
+                category: 'normal',
+                date: new Date()
             }
         ]
         return (<TodoItem todos={props} />)
     })
     .add('not complete', () => {
-        const props = [
+        const todos = [
             {
                 id: '1',
                 isDone: false,
                 content: 'wait to do',
-                category: 'green',
+                category: 'family',
                 date: new Date()
             },
             {
                 id: '2',
                 isDone: false,
                 content: 'wait to do',
-                category: 'red',
+                category: 'work',
                 date: new Date()
             },
+            {
+                id: '3',
+                isDone: false,
+                content: 'wait to do',
+                category: 'normal',
+                date: new Date()
+            }
         ]
-        return (<TodoItem todos={props} />)
+        return (<TodoItem category_style={category_style} todos={todos} />)
     })
     .add('complete', () => {
-        const props = [
+        const todos = [
             {
                 id: '1',
                 isDone: true,
                 content: 'complete list',
-                category: 'green',
+                category: 'family',
                 date: new Date()
             },
             {
                 id: '2',
                 isDone: true,
                 content: 'complete list',
-                category: 'red',
+                category: 'work',
                 date: new Date()
             },
+            {
+                id: '3',
+                isDone: true,
+                content: 'wait to do',
+                category: 'normal',
+                date: new Date()
+            }
         ]
-        return (<TodoItem todos={props} />)
+        return (<TodoItem category_style={category_style} todos={todos} />)
     })

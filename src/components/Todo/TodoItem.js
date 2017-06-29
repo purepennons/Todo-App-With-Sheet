@@ -12,28 +12,21 @@ class TodoItem extends Component {
     }
 
     render() {
-        const todos = this.props.todos
-        const ul_class = {
-            'todo-list': true,
-            'todo-list-style': true,
-        }
-        const li_class = {
-            'todo-item': true,
-            'todo-item-style': true
-        }
+        const { todos, category_style } = this.props
 
         return (
-            <ul className={cx(ul_class)}>
+            <ul className={`todo-list todo-list-style`}>
                 {
                     todos.map(todo => {
                         const { id, isDone, content, category, date } = todo
+                        const category_color = category_style[category]['color']
                         const label_class = {
                             'completeCheckbox-default': !isDone,
-                            [`category-${category}`]: isDone,
+                            [`category-${category_color}`]: isDone,
                         }
-
+                        
                         return (
-                            <li key={id} className={`category-${category} ` + cx(li_class)}>
+                            <li key={id} className={`category-${category_color} todo-item todo-item-style`}>
                                 <strong>{content}</strong>
                                 <div className={`completeCheckbox completeCheckbox-style`}>
                                     <input type="checkbox" value={id} />
@@ -49,11 +42,18 @@ class TodoItem extends Component {
 }
 
 TodoItem.propTypes = {
-    todos: PropTypes.array.isRequired
+    todos: PropTypes.array.isRequired,
+    category_style: PropTypes.object.isRequired
 }
 
 TodoItem.defaultProps = {
-    todos: []
+    todos: [],
+    category_style: {
+        normal: {
+            id: 'normal',
+            color: 'default'
+        }
+    }
 }
 
 export default TodoItem
