@@ -1,0 +1,57 @@
+.category-default {
+    background: rgba(255, 202, 36, 0.3);
+}
+
+.category-red {
+    background: rgba(255, 140, 124, 0.8);
+}
+
+.category-green {
+    background: rgba(46, 228, 99, 0.8);
+}
+
+.todo-header {
+    box-sizing: border-box;
+    display: flex;
+    flex-flow: raw nowrap;
+    justify-content: center;
+    align-content: center;
+    margin: 10px;
+    padding: 5px;
+}
+
+.todo-header-style {
+    border: 1px solid #ccd2cf;
+    border-radius: 5px;
+    font-family: Helvetica, Arial, sans-serif;
+}
+
+.todo-header select, .todo-header input , .todo-header button{
+    margin: 10px;
+    padding: 10px;
+    height: 100%;
+    border: 1px solid #aeb3b1;
+    border-radius: 5px;
+}
+
+.todo-header select {
+    display: inline-block;
+    margin: 10px;
+    border: none;
+    width: 100px;
+    text-align-last: center;
+    height: 40px;
+}
+
+.todo-header input {
+    text-indent: 5px;
+}
+
+.todo-header button {
+    background: #ffffff;
+    width: 70px;
+}
+
+.todo-header button:hover {
+    background: #eaf1ee;
+}

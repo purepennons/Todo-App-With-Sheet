@@ -9,8 +9,8 @@
 }
 
 .todo-list-style {
-    /*border: 2px solid #ff473c;
-    background-color: rgba(255, 111, 105, 0.1)*/
+    border: 1px solid #ccd2cf;
+    border-radius: 5px;
 }
 
 .todo-item {
@@ -29,6 +29,7 @@
     /*border: 1px solid #6a6e68;*/
     background-color: rgba(255, 202, 36, 0.3);
     border-radius: 0.5em;
+    height: 70px;
 }
 
 .todo-item strong {

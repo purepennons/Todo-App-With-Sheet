@@ -2,6 +2,8 @@ import React from 'react'
 import HeaderContainer from '../../containers/HeaderContainer'
 import TodoContainer from '../../containers/TodoContainer'
 
+// import '../../assets/general.css'
+
 const Main = (props) => {
     return (
         <div>

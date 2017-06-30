@@ -8,7 +8,7 @@ export const TodoState = {
     },
     todos: [],
     category_list: ['normal', 'work', 'family'],
-    category_color: {
+    category_style: {
         normal: {
             id: 'normal',
             color: 'default'
