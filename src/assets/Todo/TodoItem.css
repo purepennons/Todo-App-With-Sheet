@@ -20,6 +20,7 @@
     align-items: center;
     margin: 10px;
     padding: 5px;
+    position: relative;
 }
 
 .todo-item-style {
@@ -89,11 +90,28 @@
     cursor: pointer;
     top: 5px;
     left: 5px;
+    transition: all .5s ease
     /*z-index: 2;*/
 }
 
 .completeCheckbox-default {
     background: #ffffff;
+}
+
+.todo-item-edit-btn {
+    background: #ffffff;
+    border: 1px solid #ccd2cf;
+    border-radius: 5px;
+    font-size: .7em;
+    position: absolute;
+    right: 20%;
+}
+
+.todo-item-edit-style {
+    background: #ffffff;
+    border: 1px solid #afb3b3;
+    border-radius: 5px;
+    padding: 3px;
 }
 
 /*.completeCheckbox-complete-green {

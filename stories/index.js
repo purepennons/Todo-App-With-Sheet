@@ -27,9 +27,33 @@ storiesOf('LoginButton', module)
     .add('not login', () => <LoginButton isAuthorized={false} />)
     .add('already login', () => <LoginButton isAuthorized={true}/>)
 
+const dummyEvent = {
+    onAddItem: ({ input_text, category }) => e => {
+        e.preventDefault()
+        console.log('onAddItem event')
+    },
+
+    onComplete: ({ id }) => e => {
+        e.preventDefault()
+        console.log('onComplete event')
+    },
+
+    onEdit: ({ id }) => e => {
+        e.preventDefault()
+        e.stopPropagation()
+        console.log('onEdit event')
+    },
+
+    onUpdateTodo: ({ id, input_text }) => e => {
+        e.preventDefault()
+        e.stopPropagation()
+        console.log('onUpdateTodo event')
+    }
+}
+
 storiesOf('TodoHeader', module)
     .add('empty', () => <TodoHeader />)
-    .add('default', () => <TodoHeader category_list={['normal', 'work', 'family']} category_style={category_style}/>)
+    .add('default', () => <TodoHeader category_list={['normal', 'work', 'family']} category_style={category_style} {...dummyEvent}/>)
 
 storiesOf('TodoItem', module)
     .add('empty item', () => <TodoItem />)
@@ -40,10 +64,11 @@ storiesOf('TodoItem', module)
                 isDone: false,
                 content: 'default',
                 category: 'normal',
+                editable: false,
                 date: new Date()
             }
         ]
-        return (<TodoItem todos={props} />)
+        return (<TodoItem todos={props} {...dummyEvent} />)
     })
     .add('not complete', () => {
         const todos = [
@@ -51,6 +76,7 @@ storiesOf('TodoItem', module)
                 id: '1',
                 isDone: false,
                 content: 'wait to do',
+                editable: false,
                 category: 'family',
                 date: new Date()
             },
@@ -58,6 +84,7 @@ storiesOf('TodoItem', module)
                 id: '2',
                 isDone: false,
                 content: 'wait to do',
+                editable: false,
                 category: 'work',
                 date: new Date()
             },
@@ -65,11 +92,12 @@ storiesOf('TodoItem', module)
                 id: '3',
                 isDone: false,
                 content: 'wait to do',
+                editable: false,
                 category: 'normal',
                 date: new Date()
             }
         ]
-        return (<TodoItem category_style={category_style} todos={todos} />)
+        return (<TodoItem category_style={category_style} todos={todos} {...dummyEvent} />)
     })
     .add('complete', () => {
         const todos = [
@@ -77,6 +105,7 @@ storiesOf('TodoItem', module)
                 id: '1',
                 isDone: true,
                 content: 'complete list',
+                editable: false,
                 category: 'family',
                 date: new Date()
             },
@@ -84,6 +113,7 @@ storiesOf('TodoItem', module)
                 id: '2',
                 isDone: true,
                 content: 'complete list',
+                editable: false,
                 category: 'work',
                 date: new Date()
             },
@@ -91,9 +121,23 @@ storiesOf('TodoItem', module)
                 id: '3',
                 isDone: true,
                 content: 'wait to do',
+                editable: false,
                 category: 'normal',
                 date: new Date()
             }
         ]
-        return (<TodoItem category_style={category_style} todos={todos} />)
+        return (<TodoItem category_style={category_style} todos={todos} {...dummyEvent} />)
+    })
+    .add('editable', () => {
+        const props = [
+            {
+                id: '1',
+                isDone: false,
+                content: 'default',
+                category: 'normal',
+                editable: true,
+                date: new Date()
+            }
+        ]
+        return (<TodoItem todos={props} {...dummyEvent} />)
     })

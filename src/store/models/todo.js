@@ -2,6 +2,7 @@ export const TodoState = {
     todo: {
         id: '',
         isDone: false,
+        editable: false,
         content: '',
         category: '',
         date: null

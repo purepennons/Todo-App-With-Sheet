@@ -9,11 +9,11 @@ import '../../assets/Todo/Todo.css'
 class Todo extends Component {
     
     render() {
-        const { onAddItem, todo } = this.props
+        const { todo } = this.props
         return (
             <div className="todo-component">
-                <TodoHeader onAddItem={onAddItem} category_list={todo.category_list} category_style={todo.category_style}/>
-                <TodoItem todos={todo.todos} category_style={todo.category_style}/>
+                <TodoHeader {...this.props} {...todo}/>
+                <TodoItem {...this.props} {...todo}/>
             </div>
         )
     }

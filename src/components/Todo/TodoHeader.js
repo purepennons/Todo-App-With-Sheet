@@ -18,6 +18,7 @@ class TodoHeader extends Component {
     }
 
     onSubmit(e) {
+        if(!this.state.todoText) return
         const { onAddItem } = this.props
         onAddItem({ input_text: this.state.todoText, category: this.state.selected_category })(e)
         this.setState({ todoText: '' })

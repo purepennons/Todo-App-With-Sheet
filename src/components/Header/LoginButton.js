@@ -7,13 +7,15 @@ import style from '../../assets/button.css'
 const cx = className.bind(style)
 
 const LoginButton = (props) => {
+    const { isAuthorized } = props
+    console.log('isAuthorized', isAuthorized)
     const className = {
         'btn-auth': true,
-        'btn-auth-login': !props.isAuthorized,
-        'btn-auth-logout': props.isAuthorized,
+        'btn-auth-login': !isAuthorized,
+        'btn-auth-logout': isAuthorized,
     }
 
-    if (!props.isAuthorized) {
+    if (!isAuthorized) {
         return (
             <button className={cx(className)} onClick={ e => props.onLogin(e) }>Login</button>
         )
