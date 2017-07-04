@@ -13,13 +13,23 @@ class TodoItem extends Component {
         this.contentRefs = {
             // key = id, value = ref of content
         }
+
+        this.focus_item_ref = null
+    }
+
+    onEdit(e, { editable, id }) {
+        if(editable) return
+        const { onEdit } = this.props
+        onEdit({ id })(e)
+        this.focus_item_ref = this.contentRefs[id]
     }
 
     onUpdate(e, { id }) {
         if (!this.contentRefs[id]) return
         
         const { onUpdateTodo } = this.props
-        onUpdateTodo({id, input_text: this.contentRefs[id].textContent})(e)
+        onUpdateTodo({ id, input_text: this.contentRefs[id].textContent })(e)
+        this.focus_item_ref = null
     }
 
     onEnter(e, { id }) {
@@ -30,8 +40,12 @@ class TodoItem extends Component {
         this.onUpdate(e, { id })
     }
 
+    componentDidUpdate() {
+        if (this.focus_item_ref) this.focus_item_ref.focus()
+    }
+
     render() {
-        const { todos, category_style, onComplete, onEdit } = this.props
+        const { todos, category_style, onComplete } = this.props
 
         return (
             <ul className={`todo-list todo-list-style`}>
@@ -47,10 +61,10 @@ class TodoItem extends Component {
                         const strong_class = {
                             'todo-item-edit-style': editable
                         }
-                        
+
                         return (
-                            <li key={id} onKeyDown={e => this.onEnter(e, { id })} className={`category-${category_color} todo-item todo-item-style`} title={date.toISOString()}>
-                                <strong ref={ref => this.contentRefs[id] = ref} onDoubleClick={onEdit({ id })} className={cx(strong_class)} contentEditable={editable}>{content}</strong>
+                            <li key={id} onKeyDown={e => this.onEnter(e, { id })} draggable={`true`} className={`category-${category_color} todo-item todo-item-style`} title={date.toISOString()}>
+                                <strong ref={ref => this.contentRefs[id] = ref} onDoubleClick={e => this.onEdit(e, { editable, id })} className={cx(strong_class)} contentEditable={editable}>{content}</strong>
                                 <button onClick={e => this.onUpdate(e, { id })} className={`todo-item-edit-btn`} style={(editable) ? {}: { display: 'none'}}>Done</button>
                                 <div onClick={onComplete({ id })} className={`completeCheckbox completeCheckbox-style`}>
                                     <input type="checkbox" value={id} />
