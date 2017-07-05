@@ -2,7 +2,7 @@ import R from 'ramda'
 import shortid from 'shortid'
 
 import { TodoState } from '../../store/models/'
-import { ADD_TODO, TOGGLE_TODO, EDIT_TODO, UPDATE_TODO } from '../../constants/actionTypes'
+import { ADD_TODO, TOGGLE_TODO, EDIT_TODO, UPDATE_TODO, UPDATE_TODOS } from '../../constants/actionTypes'
 
 export default (state = TodoState, action) => {
     switch (action.type) {
@@ -46,6 +46,14 @@ export default (state = TodoState, action) => {
                 
                 const update_todos = todos.map(todo => (todo.id === id) ? { ...todo, ...{ content: input_text } } : todo)
                 return { ...state, ...{ todos: update_todos } }
+            }()
+        
+        case UPDATE_TODOS: 
+            return function () {
+                const { todos } = action.payload
+                
+                if (!todos) return state
+                return {...state, ...{todos: todos}}
             }()
         default:
             return state

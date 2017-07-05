@@ -1,7 +1,7 @@
 import { connect } from 'react-redux'
 import Todo from '../components/Todo/'
 
-import { addTodo, completeTodo, editTodo, updateTodo } from '../actions/'
+import { addTodo, completeTodo, editTodo, updateTodo, moveTodo } from '../actions/'
 import {  } from '../handlers/todo'
 
 export default connect(
@@ -29,6 +29,11 @@ export default connect(
             e.stopPropagation()
             dispatch(editTodo({ id }))
             dispatch(updateTodo({ id, input_text }))
+        },
+
+        onDrop: (dragAndDropData) => e => {
+            console.log('onDrop', dragAndDropData)
+            dispatch(moveTodo(dragAndDropData))
         }
     })
 )(Todo)

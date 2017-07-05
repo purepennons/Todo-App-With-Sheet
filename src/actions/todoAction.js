@@ -1,4 +1,5 @@
-import { ADD_TODO, TOGGLE_TODO, EDIT_TODO, UPDATE_TODO } from '../constants/actionTypes'
+import { ADD_TODO, TOGGLE_TODO, EDIT_TODO, UPDATE_TODO, UPDATE_TODOS } from '../constants/actionTypes'
+import { moveTodoHandler } from '../handlers/todo'
 
 export const addTodo = ({ input_text, category }) => ({
     type: ADD_TODO,
@@ -19,3 +20,15 @@ export const updateTodo = ({ id, input_text }) => ({
     type: UPDATE_TODO,
     payload: { id, input_text }
 })
+
+export const updateTodos = ({ todos }) => ({
+    type: UPDATE_TODOS,
+    payload: { todos }
+})
+
+export const moveTodo = (dragAndDropData) => (dispatch, getState) => {
+    const state = getState()
+    const { TodoState } = state
+    const update_todos = moveTodoHandler(dragAndDropData, TodoState.todos)
+    dispatch(updateTodos({ todos: update_todos }))
+}

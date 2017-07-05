@@ -6,6 +6,14 @@ import style from '../../assets/Todo/TodoItem.css'
 
 const cx = className.bind(style)
 
+const DEFAULT_DRAPANDDROPDATA = {
+    startAt: '',
+    endAt: '',
+    enterMouseCoor: [0, 0],
+    endMouseCoor: [0, 0],
+    lastEvent: ''
+}
+
 class TodoItem extends Component {
     constructor(props) {
         super(props)
@@ -15,10 +23,11 @@ class TodoItem extends Component {
         }
 
         this.focus_item_ref = null
+        this.dragAndDropData = DEFAULT_DRAPANDDROPDATA
     }
 
     onEdit(e, { editable, id }) {
-        if(editable) return
+        if (editable) return
         const { onEdit } = this.props
         onEdit({ id })(e)
         this.focus_item_ref = this.contentRefs[id]
@@ -40,6 +49,36 @@ class TodoItem extends Component {
         this.onUpdate(e, { id })
     }
 
+    // drag and drop
+    onDragOver(e) {
+        e.preventDefault()
+    }
+
+    onDragStart(e, { id }) {
+        this.dragAndDropData['startAt'] = id
+    }
+
+    onDragEnter(e, { id }) {
+        this.dragAndDropData['endAt'] = id
+        this.dragAndDropData['lastEvent'] = 'enter'
+        this.dragAndDropData['enterMouseCoor'] = [e.clientX, e.clientY]
+    }
+
+    onDragLeave(e, { id }) {
+        this.dragAndDropData['endAt'] = id
+        this.dragAndDropData['lastEvent'] = 'leave'
+    }
+
+    onDrageEnd(e) {
+        this.dragAndDropData['endMouseCoor'] = [e.clientX, e.clientY]
+        
+        const { onDrop } = this.props
+        onDrop(this.dragAndDropData)(e)
+        
+        // reset
+        this.dragAndDropData = DEFAULT_DRAPANDDROPDATA
+    }
+
     componentDidUpdate() {
         if (this.focus_item_ref) this.focus_item_ref.focus()
     }
@@ -48,7 +87,7 @@ class TodoItem extends Component {
         const { todos, category_style, onComplete } = this.props
 
         return (
-            <ul className={`todo-list todo-list-style`}>
+            <ul className={`todo-list todo-list-style`} >
                 {
                     todos.map(todo => {
                         const { id, isDone, editable, content, category, date } = todo
@@ -63,7 +102,16 @@ class TodoItem extends Component {
                         }
 
                         return (
-                            <li key={id} onKeyDown={e => this.onEnter(e, { id })} draggable={`true`} className={`category-${category_color} todo-item todo-item-style`} title={date.toISOString()}>
+                            <li key={id}
+                                onKeyDown={e => this.onEnter(e, { id })}
+                                onDragOver={e => this.onDragOver(e)}
+                                onDragStart={e => this.onDragStart(e, { id })}
+                                onDragEnter={e => this.onDragEnter(e, { id })}
+                                onDragLeave={e => this.onDragLeave(e, { id })}
+                                onDragEnd={e => this.onDrageEnd(e)}
+                                draggable={`true`}
+                                className={`category-${category_color} todo-item todo-item-style`}
+                                title={date.toISOString()}>
                                 <strong ref={ref => this.contentRefs[id] = ref} onDoubleClick={e => this.onEdit(e, { editable, id })} className={cx(strong_class)} contentEditable={editable}>{content}</strong>
                                 <button onClick={e => this.onUpdate(e, { id })} className={`todo-item-edit-btn`} style={(editable) ? {}: { display: 'none'}}>Done</button>
                                 <div onClick={onComplete({ id })} className={`completeCheckbox completeCheckbox-style`}>
