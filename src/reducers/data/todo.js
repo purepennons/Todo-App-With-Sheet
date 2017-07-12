@@ -6,18 +6,9 @@ import { ADD_TODO, TOGGLE_TODO, EDIT_TODO, UPDATE_TODO, UPDATE_TODOS } from '../
 
 export default (state = TodoState, action) => {
     switch (action.type) {
-        case ADD_TODO:
+        case `${ADD_TODO}_FULFILLED`:
             return function () {
-                const { input_text, category } = action.payload
-                const todo = {
-                    id: shortid.generate(),
-                    isDone: false,
-                    editable: false,
-                    content: input_text,
-                    category: category,
-                    date: new Date()
-                }
-
+                const { todo } = action.payload
                 return { ...state, ...{ todos: R.append(todo, state.todos) } }
             }()
         

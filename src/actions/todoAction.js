@@ -1,9 +1,11 @@
-import { ADD_TODO, TOGGLE_TODO, EDIT_TODO, UPDATE_TODO, UPDATE_TODOS } from '../constants/actionTypes'
-import { moveTodoHandler } from '../handlers/todo'
+import co from 'co'
 
-export const addTodo = ({ input_text, category }) => ({
+import { ADD_TODO, ADD_TODO_ACTION, TOGGLE_TODO, EDIT_TODO, UPDATE_TODO, UPDATE_TODOS } from '../constants/actionTypes'
+import { moveTodoHandler, addTodoToSheetHandler } from '../handlers/todo'
+
+export const addTodo = ({ input_text, category }) => dispatch => dispatch({
     type: ADD_TODO,
-    payload: { input_text, category }
+    payload: co(addTodoToSheetHandler({ input_text, category }))
 })
 
 export const completeTodo = ({ id }) => ({

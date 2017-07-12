@@ -1,5 +1,22 @@
 import co from 'co'
 import R from 'ramda'
+import shortid from 'shortid'
+
+export const addTodoToSheetHandler = function* ({ input_text, category }) {
+    const todo = {
+        id: shortid.generate(),
+        isDone: false,
+        editable: false,
+        content: input_text,
+        category: category,
+        date: new Date()
+    }
+
+    const appendData = Object.values(todo)
+    yield window.sheet.append([appendData], { range: 'A2' })
+    
+    return { todo }
+}
 
 export const moveTodoHandler = ({startAt, endAt, enterMouseCoor, endMouseCoor, lastEvent}, todos) => {
     // calculate the new todos
